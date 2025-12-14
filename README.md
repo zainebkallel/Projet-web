@@ -19,16 +19,5 @@ Le projet inclut également un **pipeline CI/CD automatisé** pour faciliter le 
 - **Backend :** Spring Boot  
 - **Frontend :** Angular  (vous trouvez le code dans le repository Angular)
 - **Base de données :** MySQL  
-- **Conteneurisation :** Docker  
-- **Contrôle de version :** Git / GitHub  
-- **CI/CD :** GitHub Actions  
-- **Qualité du code :** SonarQube
 
----
 
-## Installation et lancement
-1. Cloner le repository :
-
-```bash
-git clone https://github.com/tonuser/nom-du-repo.git
-cd nom-du-repo
