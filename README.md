@@ -17,7 +17,7 @@ Le projet inclut également un **pipeline CI/CD automatisé** pour faciliter le 
 
 ## Technologies utilisées
 - **Backend :** Spring Boot  
-- **Frontend :** Angular  
+- **Frontend :** Angular  (vous trouvez le code dans le repository Angular)
 - **Base de données :** MySQL  
 - **Conteneurisation :** Docker  
 - **Contrôle de version :** Git / GitHub  
