@@ -28,4 +28,16 @@ public class Don {
     @ManyToOne
     private Element element;
 
+    @Enumerated(EnumType.STRING)
+    private DonStatus status;
+
+
+
+    public enum DonStatus {
+        EN_ATTENTE,
+        CONFIRME,
+        REFUSE
+    }
 }
+
+

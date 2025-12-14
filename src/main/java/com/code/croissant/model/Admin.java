@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donnateur {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +18,6 @@ public class Donnateur {
     private String prenom;
     private String email;
     private String password;
-    private String groupeSanguin;
-    private String ville;
-    private String telephone;
+
 
 }

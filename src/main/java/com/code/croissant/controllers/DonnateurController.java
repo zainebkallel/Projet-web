@@ -1,5 +1,6 @@
 package com.code.croissant.controllers;
 
+import com.code.croissant.DTO.DonDto;
 import com.code.croissant.model.Donnateur;
 import com.code.croissant.model.Don;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static com.code.croissant.model.Don.DonStatus.EN_ATTENTE;
 
 @CrossOrigin(origins = "http://localhost:4200") // to allow Angular access
 @RestController
@@ -47,35 +50,41 @@ public class DonnateurController {
         donRepository.deleteById(donId);
     }
 
+    //
 
 
+   //🔴Faire un don pour un élément
+   @PostMapping("/dons")
+   public Don createDon(
+           @PathVariable Long donateurId,
+           @RequestParam Long elementId,
+           @RequestBody Don donRequest) {  // récupère le don depuis le JSON du front
 
+       // Vérifier que le donateur existe
+       Donnateur donnateur = donnateurRepository.findById(donateurId)
+               .orElseThrow(() -> new RuntimeException("Donnateur non trouvé avec ID : " + donateurId));
 
-    //🔴Faire un don pour un élément
-    @PostMapping("/dons")
-    public Don createDon(
-            @PathVariable Long donateurId, //Récupère l’ID du donnateur depuis l’URL
-            @RequestParam Long elementId, // ajouté au url
-            @RequestBody Don donRequest) { //donRequest est un json d'apres le front
+       // Vérifier que l’élément existe
+       Element element = elementRepository.findById(elementId)
+               .orElseThrow(() -> new RuntimeException("Élément non trouvé avec ID : " + elementId));
 
-        // Vérifier que le donateur existe
-        Donnateur donnateur = donnateurRepository.findById(donateurId)
-                .orElseThrow(() -> new RuntimeException("Donnateur non trouvé avec ID : " + donateurId));
+       // Lier les entités
+       donRequest.setDonateur(donnateur);
+       donRequest.setElement(element);
+       donRequest.setStatus(EN_ATTENTE);
 
-        //  Vérifier que l’élément existe
-        Element element = elementRepository.findById(elementId)
-                .orElseThrow(() -> new RuntimeException("Élément non trouvé avec ID : " + elementId));
+       // Ajouter la date du don automatiquement
+       donRequest.setDateDon(LocalDate.now());
 
-        // Lier les entités
-        donRequest.setDonateur(donnateur);
-        donRequest.setElement(element);
+       // Sauvegarder le don
+       return donRepository.save(donRequest);
+   }
 
-        //  Ajouter la date du don automatiquement
-        donRequest.setDateDon(LocalDate.now());
-
-        //  Sauvegarder le don
-        return donRepository.save(donRequest);
-    }
+//   //voir les dons confirmés
+//    @GetMapping("/donnateurs/{id}/dons/confirmes")
+//    public List<Don> donsConfirmes(@PathVariable Long id) {
+//        return donRepository.findByDonateurIdAndStatut(id, StatutDon.CONFIRME);
+//    }
 
 
 }

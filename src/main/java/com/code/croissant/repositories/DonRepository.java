@@ -1,5 +1,6 @@
 package com.code.croissant.repositories;
 
+import com.code.croissant.DTO.DonDto;
 import com.code.croissant.model.Don;
 import org.springframework.data.jpa.repository.JpaRepository;
 
